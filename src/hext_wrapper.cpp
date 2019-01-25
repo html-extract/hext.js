@@ -3,61 +3,28 @@
 #include <hext/Html.h>
 #include <univalue.h>
 
-int html2json(std::string hext, std::string html)
+/**
+ * Extract JSON data specified in a hext template from a
+ * source HTML document and output the result as a JSON
+ * string.
+ */
+const char * html2json(std::string hext, std::string html)
 {
-  // Build a rule that extracts links containing images
   auto rule = hext::ParseHext(hext.c_str());
-
-  // Some example HTML input
   auto parsed = hext::Html(html.c_str());
-
-  // Do the actual extraction. Rule::extract returns
-  // a std::vector<std::multimap<std::string, std::string>>
-  // where each multimap contains a complete rule match.
   auto results = rule.extract(parsed);
 
-  // Print all key-value pairs from each rule match
+  UniValue json_results(UniValue::VARR);
   for(auto result : results)
   {
-    for(auto pair : result)
-      std::cout << pair.first << ": " << pair.second << "\n";
-    std::cout << "\n";
+      UniValue json_row(UniValue::VOBJ);
+      for(auto pair : result)
+      {
+          json_row.pushKV(pair.first, pair.second);
+      }
+      json_results.push_back(json_row);
   }
 
-  // Output:
-  //   image: coffee.jpg
-  //   link: /coffee
-  //   title: #1 Coffee turns nights into code
-  //
-  //   image: beer.jpg
-  //   link: /beer
-  //   title: #2 Beer improves dance skill by 70%
-
-  return 0;
+    return json_results.write().c_str();
 }
-
-/*
-int main()
-{
-    std::string hext =
-        "<a href:link @text:title>"
-        "  <img src:image />"
-        "</a>";
-    std::string html =
-        "<a href='/coffee'>"
-        "  <span>#1</span>"
-        "  <span>Coffee</span>"
-        "  <img src='coffee.jpg' />"
-        "  <span>turns nights into code</span>"
-        "</a>"
-        "<a href='/beer'>"
-        "  <span>#2</span>"
-        "  <span>Beer</span>"
-        "  <img src='beer.jpg' />"
-        "  <span>improves dance skill by 70%</span>"
-        "</a>";
-
-    return html2json(hext, html);
-}
-*/
 

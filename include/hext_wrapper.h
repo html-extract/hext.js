@@ -5,7 +5,7 @@
 
 extern "C" {
 
-int html2json(std::string hext, std::string html);
+const char * html2json(std::string hext, std::string html);
 
 }
 

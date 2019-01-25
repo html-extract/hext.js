@@ -25,6 +25,10 @@ build_wrapper:
 		-s EXPORTED_FUNCTIONS='["_html2json"]' \
 		-s EXTRA_EXPORTED_RUNTIME_METHODS='["ccall", "cwrap"]'
 
+install:
+	cp hext_wrapper.wasm ../CJW/autoscrape-extractor-workbench/dist/
+	cp hext_wrapper.js ../CJW/autoscrape-extractor-workbench/dist/
+
 clean:
 	make -f Makefile.boost clean
 	make -f Makefile.gumbo clean
