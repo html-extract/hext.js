@@ -37,6 +37,7 @@ compile_install:
 
 clean:
 	rm -rf build/v0.7.0.tar.gz
+	rm -rf build/hext-0.7.0
 	rm -f /tmp/hext_build_tmp
 	rm -rf hext_build
 

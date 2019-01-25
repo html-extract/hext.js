@@ -30,6 +30,6 @@ compile_install:
 
 clean:
 	rm -rf build/v0.10.1.tar.gz
-	rm -rf build/gumbo-praser-0.10.1
+	rm -rf build/gumbo-parser-0.10.1
 	rm -rf gumbo_build
 

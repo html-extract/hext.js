@@ -29,7 +29,7 @@ build/boost_1_67_0/project-config.jam:
 	cd build/boost_1_67_0 && \
 	./bootstrap.sh \
 		--prefix=/boost_build \
-		--with-libraries=regex,program_options
+		--with-libraries=regex
 
 compile_install:
 	cd build/boost_1_67_0 && \
@@ -38,7 +38,7 @@ compile_install:
 		toolset=emscripten \
 		variant=release \
 		threading=single \
-		regex program_options \
+		regex \
 		install
 
 clean:
