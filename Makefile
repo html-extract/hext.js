@@ -1,6 +1,15 @@
-CPP=/home/brando/src/emsdk/emscripten/1.38.24/em++
+CPP=${HOME}/src/emsdk/emscripten/1.38.24/em++
 
-all: dependencies build_wrapper
+all: check_environment dependencies build_wrapper
+
+check_environment:
+	if ! which em++ 2> /dev/null || \
+		! which emar 2> /dev/null  || \
+		! which emmake 2> /dev/null || \
+		! which emcmake 2> /dev/null; then \
+		echo "Emscripten not on PATH! Quitting."; \
+		exit 1; \
+	fi
 
 dependencies:
 	make -f Makefile.boost
@@ -23,7 +32,7 @@ build_wrapper:
 		./boost_build/lib/libboost_regex.so \
 		./univalue_build/lib/libunivalue.a \
 		-s EXPORTED_FUNCTIONS='["_html2json"]' \
-		-s EXTRA_EXPORTED_RUNTIME_METHODS='["ccall", "cwrap"]'
+		-s EXTRA_EXPORTED_RUNTIME_METHODS='["ccall"]'
 
 install:
 	cp hext_wrapper.wasm ../CJW/autoscrape-extractor-workbench/dist/
