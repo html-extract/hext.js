@@ -1,0 +1,35 @@
+# Build UniValue JSON library
+BASE=${PWD}
+
+all: build/v1.0.1.tar.gz \
+	build/univalue-1.0.1 \
+	build/univalue-1.0.1/configure \
+	build/univalue-1.0.1/Makefile \
+	compile_install
+
+build/v1.0.1.tar.gz:
+	cd build && \
+	wget https://github.com/bitcoin-core/univalue/archive/v1.0.1.tar.gz
+
+build/univalue-1.0.1:
+	cd build && \
+	tar xvf v1.0.1.tar.gz
+
+build/univalue-1.0.1/configure:
+	cd build/univalue-1.0.1 && \
+	./autogen.sh
+
+build/univalue-1.0.1/Makefile:
+	cd build/univalue-1.0.1 && \
+	emconfigure ./configure \
+		--prefix=${BASE}/univalue_build \
+		--enable-static
+
+compile_install:
+	cd build/univalue-1.0.1 && \
+	emmake make install
+
+clean:
+	rm -rf build/univalue-1.0.1 build/v1.0.1.tar.gz
+	rm -rf univalue_build
+

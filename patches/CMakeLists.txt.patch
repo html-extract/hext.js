@@ -1,0 +1,22 @@
+diff --git a/../../hext_emscripten_test/build/hext-0.7.0/libhext/CMakeLists.txt b/CMakeLists.txt
+index b7cce4e..af4666b 100644
+--- a/../../hext_emscripten_test/build/hext-0.7.0/libhext/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -7,6 +7,17 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.0 FATAL_ERROR)
+ 
+ SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/../cmake)
+ 
++SET(Gumbo_LIBRARY /tmp/hext_build_tmp/gumbo_build/lib/libgumbo.a)
++SET(Gumbo_INCLUDE_DIR /tmp/hext_build_tmp/gumbo_build/include)
++SET(BOOST_ROOT /tmp/hext_build_tmp/boost_build)
++SET(BOOST_INCLUDEDIR /tmp/hext_build_tmp/boost_build/include)
++SET(BOOST_INCLUDE /tmp/hext_build_tmp/boost_build/include)
++SET(Boost_INCLUDE_DIR /tmp/hext_build_tmp/boost_build/include)
++SET(Boost_LIBRARY_DIR_DEBUG /tmp/hext_build_tmp/boost_build/lib)
++SET(Boost_LIBRARY_DIR_RELEASE /tmp/hext_build_tmp/boost_build/lib)
++SET(Boost_REGEX_LIBRARY_RELEASE /tmp/hext_build_tmp/boost_build/lib/libboost_regex.so)
++SET(hext_LIB_DEPENDS /tmp/hext_build_tmp/gumbo_build/lib/libgumbo.a;/tmp/hext_build_tmp/boost_build/lib/libboost_regex.so;)
++
+ # Set required C++ standard or abort.
+ INCLUDE(HextForceCppStd)
+ 

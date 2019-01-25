@@ -1,0 +1,47 @@
+# Build boost 1.67.0 emscripten
+BASE=${PWD}
+
+boost: makebuild build/boost_1_67_0.tar.bz2 \
+	build/boost_1_67_0 \
+	build/boost_1_67_0/tools/build/src/tools/generators/searched-lib-generator.jam.orig \
+	build/boost_1_67_0/project-config.jam \
+	compile_install
+
+makebuild:
+	mkdir -p build
+
+build/boost_1_67_0.tar.bz2:
+	cd build && \
+	wget https://dl.bintray.com/boostorg/release/1.67.0/source/boost_1_67_0.tar.bz2
+
+build/boost_1_67_0:
+	cd build && \
+	tar xvf boost_1_67_0.tar.bz2
+
+build/boost_1_67_0/tools/build/src/tools/generators/searched-lib-generator.jam.orig:
+	cd build/boost_1_67_0 && \
+	patch -b \
+		--forward \
+		tools/build/src/tools/generators/searched-lib-generator.jam \
+		< ${BASE}/patches/searched-lib-generator.jam.patch
+
+build/boost_1_67_0/project-config.jam:
+	cd build/boost_1_67_0 && \
+	./bootstrap.sh \
+		--prefix=/boost_build \
+		--with-libraries=regex,program_options
+
+compile_install:
+	cd build/boost_1_67_0 && \
+	./b2 \
+		--prefix=${BASE}/boost_build \
+		toolset=emscripten \
+		variant=release \
+		threading=single \
+		regex program_options \
+		install
+
+clean:
+	rm -rf build/boost_*
+	rm -rf boost_build
+

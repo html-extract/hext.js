@@ -1,0 +1,42 @@
+# Build libhext v0.7.0 emscripten
+BASE=${PWD}
+
+all: build/v0.7.0.tar.gz \
+	build/hext-0.7.0 \
+	/tmp/hext_build_tmp \
+	build/hext-0.7.0/libhext/CMakeLists.txt.orig \
+	compile_install
+
+build/v0.7.0.tar.gz:
+	cd build && \
+	wget https://github.com/thomastrapp/hext/archive/v0.7.0.tar.gz
+
+build/hext-0.7.0:
+	cd build && \
+	tar xvf v0.7.0.tar.gz
+
+# Build a temporary link to the build directory so
+# cmake doesn't freak out at us and refuse to build
+# with relative paths
+/tmp/hext_build_tmp:
+	ln -s ${BASE} /tmp/hext_build_tmp
+
+build/hext-0.7.0/libhext/CMakeLists.txt.orig:
+	cd build/hext-0.7.0 && \
+	patch -b --forward libhext/CMakeLists.txt \
+	< ../../patches/CMakeLists.txt.patch \
+
+compile_install:
+	cd build/hext-0.7.0/libhext/build && \
+	emcmake cmake .. && \
+	emmake make VERBOSE=1 && \
+	mkdir -p ${BASE}/hext_build/lib && \
+	cp libhext.a ${BASE}/hext_build/lib && \
+	cp -rf ../include ${BASE}/hext_build/ && \
+	rm -f /tmp/hext_build_tmp
+
+clean:
+	rm -rf build/v0.7.0.tar.gz
+	rm -f /tmp/hext_build_tmp
+	rm -rf hext_build
+
