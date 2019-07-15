@@ -1,5 +1,3 @@
-CPP=${HOME}/src/emsdk/emscripten/1.38.24/em++
-
 all: check_environment dependencies build_wrapper
 
 check_environment:
@@ -18,7 +16,7 @@ dependencies:
 	make -f Makefile.libhext
 
 build_wrapper:
-	${CPP} -std=c++1z -O3 -DNDEBUG \
+	em++ -std=c++1z -O3 -DNDEBUG \
 		./src/hext_wrapper.cpp \
 		-o hext_wrapper.html \
 		-I ./include \
