@@ -11,6 +11,8 @@ check_environment:
 
 .PHONY: dependencies
 dependencies:
+	mkdir -p build
+	mkdir -p build-dep
 	make -f Makefile.boost
 	make -f Makefile.gumbo
 	make -f Makefile.univalue
@@ -21,15 +23,12 @@ build_wrapper:
 		./src/hext_wrapper.cpp \
 		-o hext_wrapper.html \
 		-I ./include \
-		-I./hext_build/include \
-		-I./gumbo_build/include  \
-		-I./boost_build/include  \
-		-I./univalue_build/include \
-		-Wl,-rpath,../boost_build/lib \
-		./hext_build/lib/libhext.a \
-		./gumbo_build/lib/libgumbo.a \
-		./boost_build/lib/libboost_regex.so \
-		./univalue_build/lib/libunivalue.a \
+		-I./build-dep/include \
+		-Wl,-rpath,../build-dep/lib \
+		./build-dep/lib/libhext.a \
+		./build-dep/lib/libgumbo.a \
+		./build-dep/lib/libboost_regex.so \
+		./build-dep/lib/libunivalue.a \
 		-s EXPORTED_FUNCTIONS='["_html2json"]' \
 		-s EXTRA_EXPORTED_RUNTIME_METHODS='["ccall"]'
 

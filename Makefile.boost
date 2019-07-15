@@ -1,13 +1,10 @@
 # Build boost 1.70.0 emscripten
 BASE=${PWD}
 
-boost: makebuild build/boost_1_70_0.tar.bz2 \
+boost: build/boost_1_70_0.tar.bz2 \
 	build/boost_1_70_0 \
 	build/boost_1_70_0/project-config.jam \
-	boost_build/lib/libboost_regex.so
-
-makebuild:
-	mkdir -p build
+	build-dep/lib/libboost_regex.so
 
 build/boost_1_70_0.tar.bz2:
 	cd build && \
@@ -20,14 +17,14 @@ build/boost_1_70_0:
 build/boost_1_70_0/project-config.jam:
 	cd build/boost_1_70_0 && \
 	./bootstrap.sh \
-		--prefix=${BASE}/boost_build \
+		--prefix=${BASE}/build-dep \
 		--without-icu \
 		--with-libraries=regex
 
-boost_build/lib/libboost_regex.so:
+build-dep/lib/libboost_regex.so:
 	cd build/boost_1_70_0 && \
 	./b2 \
-		--prefix=${BASE}/boost_build \
+		--prefix=${BASE}/build-dep \
 		--disable-icu \
 		toolset=emscripten \
 		variant=release \
@@ -36,6 +33,6 @@ boost_build/lib/libboost_regex.so:
 		install
 
 clean:
+	rm -f build-dep/lib/libboost_regex.so
 	rm -rf build/boost_*
-	rm -rf boost_build
 

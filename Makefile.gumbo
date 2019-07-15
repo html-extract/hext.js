@@ -5,7 +5,7 @@ BASE=${PWD}
 all: build/v0.10.1.tar.gz build/gumbo-parser-0.10.1 \
 	build/gumbo-parser-0.10.1/configure \
 	build/gumbo-parser-0.10.1/Makefile \
-	gumbo_build/lib/libgumbo.a
+	build-dep/lib/libgumbo.a
 
 build/v0.10.1.tar.gz:
 	cd build && wget https://github.com/google/gumbo-parser/archive/v0.10.1.tar.gz
@@ -17,19 +17,17 @@ build/gumbo-parser-0.10.1/configure:
 	cd build/gumbo-parser-0.10.1 && ./autogen.sh
 
 build/gumbo-parser-0.10.1/Makefile:
-	mkdir -p ${BASE}/gumbo_build && \
 	cd build/gumbo-parser-0.10.1 && \
 	emconfigure ./configure \
-		--libdir=${BASE}/gumbo_build/lib \
-		--includedir=${BASE}/gumbo_build/include \
+		--prefix=${BASE}/build-dep \
 		--enable-static --disable-shared
 
-gumbo_build/lib/libgumbo.a:
+build-dep/lib/libgumbo.a:
 	cd build/gumbo-parser-0.10.1 && \
 	emmake make install
 
 clean:
+	rm -f build-dep/lib/libgumbo.a
 	rm -rf build/v0.10.1.tar.gz
 	rm -rf build/gumbo-parser-0.10.1
-	rm -rf gumbo_build
 
