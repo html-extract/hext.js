@@ -9,6 +9,7 @@ check_environment:
 		exit 1; \
 	fi
 
+.PHONY: dependencies
 dependencies:
 	make -f Makefile.boost
 	make -f Makefile.gumbo
