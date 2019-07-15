@@ -21,12 +21,14 @@ build/boost_1_70_0/project-config.jam:
 	cd build/boost_1_70_0 && \
 	./bootstrap.sh \
 		--prefix=/boost_build \
+		--without-icu \
 		--with-libraries=regex
 
 compile_install:
 	cd build/boost_1_70_0 && \
 	./b2 \
 		--prefix=${BASE}/boost_build \
+		--disable-icu \
 		toolset=emscripten \
 		variant=release \
 		threading=single \
