@@ -20,7 +20,7 @@ build/boost_1_70_0:
 build/boost_1_70_0/project-config.jam:
 	cd build/boost_1_70_0 && \
 	./bootstrap.sh \
-		--prefix=/boost_build \
+		--prefix=${BASE}/boost_build \
 		--without-icu \
 		--with-libraries=regex
 
