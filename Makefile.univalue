@@ -5,7 +5,7 @@ all: build/v1.0.4.tar.gz \
 	build/univalue-1.0.4 \
 	build/univalue-1.0.4/configure \
 	build/univalue-1.0.4/Makefile \
-	compile_install
+	univalue_build/lib/libunivalue.a
 
 build/v1.0.4.tar.gz:
 	cd build && \
@@ -25,7 +25,7 @@ build/univalue-1.0.4/Makefile:
 		--prefix=${BASE}/univalue_build \
 		--enable-static
 
-compile_install:
+univalue_build/lib/libunivalue.a:
 	cd build/univalue-1.0.4 && \
 	emmake make install
 
