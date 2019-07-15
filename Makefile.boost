@@ -3,7 +3,6 @@ BASE=${PWD}
 
 boost: makebuild build/boost_1_67_0.tar.bz2 \
 	build/boost_1_67_0 \
-	build/boost_1_67_0/tools/build/src/tools/generators/searched-lib-generator.jam.orig \
 	build/boost_1_67_0/project-config.jam \
 	compile_install
 
@@ -17,13 +16,6 @@ build/boost_1_67_0.tar.bz2:
 build/boost_1_67_0:
 	cd build && \
 	tar xvf boost_1_67_0.tar.bz2
-
-build/boost_1_67_0/tools/build/src/tools/generators/searched-lib-generator.jam.orig:
-	cd build/boost_1_67_0 && \
-	patch -b \
-		--forward \
-		tools/build/src/tools/generators/searched-lib-generator.jam \
-		< ${BASE}/patches/searched-lib-generator.jam.patch
 
 build/boost_1_67_0/project-config.jam:
 	cd build/boost_1_67_0 && \
