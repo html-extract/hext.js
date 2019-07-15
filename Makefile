@@ -41,6 +41,8 @@ clean:
 	make -f Makefile.gumbo clean
 	make -f Makefile.univalue clean
 	make -f Makefile.libhext clean
+	rm -r build-dep
+	rm -r build
 	rm -rf hext_wrapper.js
 	rm -rf hext_wrapper.wasm
 	rm -rf hext_wrapper.html
