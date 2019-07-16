@@ -11,6 +11,7 @@ build/v0.8.0.tar.gz:
 
 build/hext-0.8.0:
 	cd build && \
+	echo '9a4c9bca1a01bb22a642fe5d7523c6a8c625aebf4bdd4b6a6cfa50c2624ac29a  v0.8.0.tar.gz' | shasum -c && \
 	tar xvf v0.8.0.tar.gz
 
 build-dep/lib/libhext.a:
