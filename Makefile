@@ -1,4 +1,5 @@
 all: check_environment dependencies hext-emscripten.html
+test: all run-tests
 
 check_environment:
 	if ! which em++ 2> /dev/null || \
@@ -39,6 +40,11 @@ hext-emscripten.html:
 		./build-dep/lib/libgumbo.a \
 		./build-dep/lib/libboost_regex.so \
 		-s DISABLE_EXCEPTION_CATCHING=0
+
+run-tests:
+	HTMLEXT="node ./htmlext.wasm.js" \
+		./build/hext-0.8.0/test/blackbox.sh \
+		./build/hext-0.8.0/test/case/*hext
 
 clean:
 	make -f Makefile.boost clean

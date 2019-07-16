@@ -45,3 +45,7 @@ hext.onRuntimeInitialized = function() {
 
 Also check out [htmlext.wasm.js](./htmlext.wasm.js) which is a stripped down JavaScript port of the htmlext command line utility.
 
+## Testing
+
+Running `make test` will run libhext's [blackbox tests](https://github.com/html-extract/hext/blob/master/test/blackbox.sh) through `htmlext.wasm.js`.
+
