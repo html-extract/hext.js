@@ -38,13 +38,10 @@
 
 # build dirs
 build/
-boost_build/
-gumbo_build/
-univalue_build/
-hext_build/
+build-dep/
 
 # output js/web assembly/stub html
-hext_wrapper.html
-hext_wrapper.js
-hext_wrapper.wasm
+hext-emscripten.html
+hext-emscripten.js
+hext-emscripten.wasm
 
