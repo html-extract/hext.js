@@ -1,4 +1,4 @@
-all: check_environment dependencies build_wrapper
+all: check_environment dependencies hext-emscripten.html
 
 check_environment:
 	if ! which em++ 2> /dev/null || \
@@ -15,35 +15,38 @@ dependencies:
 	mkdir -p build-dep
 	make -f Makefile.boost
 	make -f Makefile.gumbo
-	make -f Makefile.univalue
 	make -f Makefile.libhext
 
-build_wrapper:
-	em++ -std=c++1z -O3 -DNDEBUG \
-		./src/hext_wrapper.cpp \
-		-o hext_wrapper.html \
-		-I ./include \
+hext-emscripten.html:
+	em++ -std=c++17 -O3 -DNDEBUG \
+		-Weverything \
+		-Wno-c++98-compat \
+		-Wno-c++98-compat-pedantic \
+		-Wno-documentation \
+		-Wno-documentation-html \
+		-Wno-documentation-unknown-command \
+		-Wno-exit-time-destructors \
+		-Wno-global-constructors \
+		-Wno-padded \
+		-Wno-switch-enum \
+		-Wno-weak-vtables \
+		-Wno-missing-prototypes \
+		--bind \
+		./wrapper/hext-emscripten.cpp \
+		-o hext-emscripten.html \
 		-I./build-dep/include \
 		./build-dep/lib/libhext.a \
 		./build-dep/lib/libgumbo.a \
 		./build-dep/lib/libboost_regex.so \
-		./build-dep/lib/libunivalue.a \
-		-s EXPORTED_FUNCTIONS='["_html2json"]' \
-		-s EXTRA_EXPORTED_RUNTIME_METHODS='["ccall"]'
-
-install-autoscrape:
-	cp hext_wrapper.wasm ../CJW/autoscrape-extractor-workbench/dist/
-	cp hext_wrapper.js ../CJW/autoscrape-extractor-workbench/dist/
+		-s DISABLE_EXCEPTION_CATCHING=0
 
 clean:
 	make -f Makefile.boost clean
 	make -f Makefile.gumbo clean
-	make -f Makefile.univalue clean
 	make -f Makefile.libhext clean
-	rm -r build-dep
-	rm -r build
-	rm -rf hext_wrapper.js
-	rm -rf hext_wrapper.wasm
-	rm -rf hext_wrapper.html
-
+	rm -rf build-dep
+	rm -rf build
+	rm -f hext-emscripten.js
+	rm -f hext-emscripten.wasm
+	rm -f hext-emscripten.html
 
