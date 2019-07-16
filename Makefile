@@ -24,7 +24,6 @@ build_wrapper:
 		-o hext_wrapper.html \
 		-I ./include \
 		-I./build-dep/include \
-		-Wl,-rpath,../build-dep/lib \
 		./build-dep/lib/libhext.a \
 		./build-dep/lib/libgumbo.a \
 		./build-dep/lib/libboost_regex.so \
