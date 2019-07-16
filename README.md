@@ -29,3 +29,19 @@ console.log(results);
 console.log(JSON.stringify(results));
 ```
 
+Using `hext-emscripten.js` with node does work as well:
+```
+#!/usr/bin/env node
+
+var hext = require('./hext-emscripten.js');
+
+hext.onRuntimeInitialized = function() {
+  var html = new hext.Html("<body><div>Hello</div><div>World</div></body>")
+  var rule = new hext.Rule("<div @text:HI />");
+  var results = rule.extract(html);
+  console.log(results);
+};
+```
+
+Also check out [htmlext.wasm.js](./htmlext.wasm.js) which is a stripped down JavaScript port of the htmlext command line utility.
+
