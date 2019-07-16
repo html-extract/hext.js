@@ -7,7 +7,7 @@ all: build/v0.8.0.tar.gz \
 
 build/v0.8.0.tar.gz:
 	cd build && \
-	wget https://github.com/thomastrapp/hext/archive/v0.8.0.tar.gz
+	wget https://github.com/html-extract/hext/archive/v0.8.0.tar.gz
 
 build/hext-0.8.0:
 	cd build && \
