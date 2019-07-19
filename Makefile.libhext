@@ -21,6 +21,7 @@ build-dep/lib/libhext.a:
 		-DGumbo_INCLUDE_DIR=${BASE}/build-dep/include \
 		-DBoost_INCLUDE_DIR=${BASE}/build-dep/include \
 		-DBoost_LIBRARY_DIR=${BASE}/build-dep/lib \
+		-DCMAKE_FIND_ROOT_PATH=${BASE}/build-dep/lib/cmake \
 		-DCMAKE_INSTALL_PREFIX=${BASE}/build-dep \
 		.. && \
 	emmake make install VERBOSE=1
