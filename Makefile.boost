@@ -1,40 +1,32 @@
-# Build boost 1.67.0 emscripten
+# Build boost 1.70.0 emscripten
 BASE=${PWD}
 
-boost: makebuild build/boost_1_67_0.tar.bz2 \
-	build/boost_1_67_0 \
-	build/boost_1_67_0/tools/build/src/tools/generators/searched-lib-generator.jam.orig \
-	build/boost_1_67_0/project-config.jam \
-	compile_install
+boost: build/boost_1_70_0.tar.bz2 \
+	build/boost_1_70_0 \
+	build/boost_1_70_0/project-config.jam \
+	build-dep/lib/libboost_regex.so
 
-makebuild:
-	mkdir -p build
-
-build/boost_1_67_0.tar.bz2:
+build/boost_1_70_0.tar.bz2:
 	cd build && \
-	wget https://dl.bintray.com/boostorg/release/1.67.0/source/boost_1_67_0.tar.bz2
+	wget https://dl.bintray.com/boostorg/release/1.70.0/source/boost_1_70_0.tar.bz2
 
-build/boost_1_67_0:
+build/boost_1_70_0:
 	cd build && \
-	tar xvf boost_1_67_0.tar.bz2
+	echo '430ae8354789de4fd19ee52f3b1f739e1fba576f0aded0897c3c2bc00fb38778  boost_1_70_0.tar.bz2' | shasum -c && \
+	tar xvf boost_1_70_0.tar.bz2
 
-build/boost_1_67_0/tools/build/src/tools/generators/searched-lib-generator.jam.orig:
-	cd build/boost_1_67_0 && \
-	patch -b \
-		--forward \
-		tools/build/src/tools/generators/searched-lib-generator.jam \
-		< ${BASE}/patches/searched-lib-generator.jam.patch
-
-build/boost_1_67_0/project-config.jam:
-	cd build/boost_1_67_0 && \
+build/boost_1_70_0/project-config.jam:
+	cd build/boost_1_70_0 && \
 	./bootstrap.sh \
-		--prefix=/boost_build \
+		--prefix=${BASE}/build-dep \
+		--without-icu \
 		--with-libraries=regex
 
-compile_install:
-	cd build/boost_1_67_0 && \
+build-dep/lib/libboost_regex.so:
+	cd build/boost_1_70_0 && \
 	./b2 \
-		--prefix=${BASE}/boost_build \
+		--prefix=${BASE}/build-dep \
+		--disable-icu \
 		toolset=emscripten \
 		variant=release \
 		threading=single \
@@ -42,6 +34,6 @@ compile_install:
 		install
 
 clean:
+	rm -f build-dep/lib/libboost_regex.so
 	rm -rf build/boost_*
-	rm -rf boost_build
 
