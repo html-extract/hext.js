@@ -3,8 +3,10 @@ language: generic
 script: scripts/travis/build.sh
 deploy:
   provider: releases
-  file_glob: true
-  file: ~/hext-emscripten/hext-emscripten.*
+  file:
+    - "hext-emscripten.js"
+    - "hext-emscripten.html"
+    - "hext-emscripten.wasm"
   skip_cleanup: true
   draft: true
   overwrite: true
@@ -12,3 +14,4 @@ deploy:
     tags: true
   api-key:
     secure: JTv6G2VEFfUtx/8aEuEUlnorPEoZd+/o+NEuLg15HDRoo2ffnnZhuOpF8iph6u2fsTlW+1dEtPeFy43RZdkE+xYjmJqyNRH1yn0k7WNT6pwAiWO2pc3u3Gi/hnJ8cVoetzSR8MywVEB4HX5sd08ODc0sehrbtVtf0SIZKzP/+bKkUCRGaHHycRS338BQv+3AFPUa52TTy9p6+gkO9DZVqfeg2UsimuJN/f+1KPSsOR3YPe53SA0wp1PLOFU1E1ZMvIx1TH07t7QhlhtjgKCyxj9xn5ja1RfXPaXk/hl3hzFE/GmExRXpqLmuxXI1/iCNwDXdWLtQm5cUvj6TAhHlYanIwMxz5+XQR9NMWC9Jzw11G+gtVpk6DvtaawDq7G/u1W+eUfby12qcArhkjO7DS54pIGJBJypj3sI3Wp0PKEjpqc+ud5N3uOHGzgP64d7TsvqRefw9sKGokM7KzmezsRrKmtDxdFO2TnuQX9WDz1ImUPf4BxAScKlgDdySmJcCK8+aZHae+PHFyOrT/YREDlJuT7Fda1aAHBnLXlyOdcihJ8D5QvtUMMHEtOhjjg0IPk5LcMge3NOxr/f+c07Fnc4UVCvTp6XjYgy596KwQQBDXqKTDUD/dedr5NSVWocNexUIZ6m3jMYRS8R36QPeWSWjrJU7t2ytLGsReB/Qr1w=
+
