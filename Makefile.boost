@@ -13,7 +13,7 @@ build/boost_1_70_0.tar.bz2:
 build/boost_1_70_0:
 	cd build && \
 	echo '430ae8354789de4fd19ee52f3b1f739e1fba576f0aded0897c3c2bc00fb38778  boost_1_70_0.tar.bz2' | shasum -c && \
-	tar xvf boost_1_70_0.tar.bz2
+	tar xf boost_1_70_0.tar.bz2
 
 build/boost_1_70_0/project-config.jam:
 	cd build/boost_1_70_0 && \
