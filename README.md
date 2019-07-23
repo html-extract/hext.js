@@ -1,5 +1,7 @@
 # Hext Emscripten
 
+[![Build Status](https://travis-ci.org/html-extract/hext-emscripten.svg?branch=master)](https://travis-ci.org/html-extract/hext-emscripten)
+
 This is a full Make build process for compiling the C/C++ Hext and all its dependencies to JavaScript/WebAssembly.
 
 In order to build this, you need [Emscripten](https://kripken.github.io/emscripten-site/docs/getting_started/downloads.html).
