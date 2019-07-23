@@ -3,6 +3,8 @@
 set -e
 set -x
 
+REPOS_DIR=$(readlink -f .)
+
 sudo apt-get update -yy
 sudo apt-get install -yy \
   wget git python2.7 python build-essential libxml2 \
@@ -18,9 +20,8 @@ git pull
 source ./emsdk_env.sh
 
 # setup hext-emscripten
-cd ~
-git clone https://github.com/html-extract/hext-emscripten.git
-cd hext-emscripten
+cd "$REPOS_DIR"
 make
 make test
+readlink -f hext-emscripten.*
 
