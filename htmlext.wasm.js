@@ -6,40 +6,40 @@ var util = require('util');
 var file = require('fs');
 
 hext.onRuntimeInitialized = function() {
-	var args = process.argv.slice(2);
-	var scriptname = path.basename(__filename);
-	if( args.length < 1 )
-	{
-		console.log(util.format("Usage: %s <file-hext> <file-html>", scriptname));
-		console.log("  Applies Hext from <file-hext> to the HTML document in" +
-								" <file-html>");
-		console.log("  and prints the result as JSON, one object per line.");
-		process.exit();
-	}
-	if( args.length < 2 )
-	{
-		console.error(util.format("%s: Error: missing arguments", scriptname));
-		process.exit(1);
-	}
+  var args = process.argv.slice(2);
+  var scriptname = path.basename(__filename);
+  if( args.length < 1 )
+  {
+    console.log(util.format("Usage: %s <file-hext> <file-html>", scriptname));
+    console.log("  Applies Hext from <file-hext> to the HTML document in" +
+                " <file-html>");
+    console.log("  and prints the result as JSON, one object per line.");
+    process.exit();
+  }
+  if( args.length < 2 )
+  {
+    console.error(util.format("%s: Error: missing arguments", scriptname));
+    process.exit(1);
+  }
 
-	var strhext = file.readFileSync(args[0], "utf-8");
-	var strhtml = file.readFileSync(args[1], "utf-8");
+  var strhext = file.readFileSync(args[0], "utf-8");
+  var strhtml = file.readFileSync(args[1], "utf-8");
 
-	var rule;
-	try
-	{
-		rule = new hext.Rule(strhext);
-	}
-	catch(e)
-	{
-		console.error(util.format("%s: In %s: %s", scriptname, args[0], e.message));
-		process.exit(1);
-	}
+  var rule;
+  try
+  {
+    rule = new hext.Rule(strhext);
+  }
+  catch(e)
+  {
+    console.error(util.format("%s: In %s: %s", scriptname, args[0], e.message));
+    process.exit(1);
+  }
 
-	var html = new hext.Html(strhtml);
-	var result = rule.extract(html);
+  var html = new hext.Html(strhtml);
+  var result = rule.extract(html);
 
-	for(var i in result)
-		console.log(JSON.stringify(result[i]));
+  for(var i in result)
+    console.log(JSON.stringify(result[i]));
 };
 
