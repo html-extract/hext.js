@@ -19,7 +19,7 @@ source ./emsdk_env.sh
 
 # setup hext-emscripten
 cd ~
-git clone https://github.com/thomastrapp/hext-emscripten.git
+git clone https://github.com/html-extract/hext-emscripten.git
 cd hext-emscripten
 make
 make test
