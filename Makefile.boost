@@ -25,6 +25,7 @@ build/boost_1_70_0/project-config.jam:
 build-dep/lib/libboost_regex.so:
 	cd build/boost_1_70_0 && \
 	./b2 \
+		-d0 \
 		--prefix=${BASE}/build-dep \
 		--disable-icu \
 		toolset=emscripten \
