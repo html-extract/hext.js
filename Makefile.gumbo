@@ -12,7 +12,7 @@ build/v0.10.1.tar.gz:
 
 build/gumbo-parser-0.10.1:
 	cd build && \
-	echo '28463053d44a5dfbc4b77bcf49c8cee119338ffa636cc17fc3378421d714efad  v0.10.1.tar.gz' | shasum -c && \
+	echo '28463053d44a5dfbc4b77bcf49c8cee119338ffa636cc17fc3378421d714efad  v0.10.1.tar.gz' | sha256sum -c && \
 	tar xf v0.10.1.tar.gz
 
 build/gumbo-parser-0.10.1/configure:

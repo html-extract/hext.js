@@ -5,7 +5,7 @@ set -x
 
 sudo apt-get update -yy
 sudo apt-get install -yy \
-  wget git libdigest-sha-perl python2.7 python build-essential libxml2 \
+  wget git python2.7 python build-essential libxml2 \
   libtool autoconf rapidjson-dev cmake
 
 # setup emsdk
