@@ -4,9 +4,9 @@ script: scripts/travis/build.sh
 deploy:
   provider: releases
   file:
-    - "hext-emscripten.js"
-    - "hext-emscripten.html"
-    - "hext-emscripten.wasm"
+    - "/home/travis/hext-emscripten/hext-emscripten.js"
+    - "/home/travis/hext-emscripten/hext-emscripten.html"
+    - "/home/travis/hext-emscripten/hext-emscripten.wasm"
   skip_cleanup: true
   draft: true
   overwrite: true
