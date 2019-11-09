@@ -43,8 +43,8 @@ hext-emscripten.html:
 
 run-tests:
 	HTMLEXT="node ./htmlext.wasm.js" \
-		./build/hext-0.8.0/test/blackbox.sh \
-		./build/hext-0.8.0/test/case/*hext
+		./build/hext-0.8.3/test/blackbox.sh \
+		./build/hext-0.8.3/test/case/*hext
 
 clean:
 	make -f Makefile.boost clean
