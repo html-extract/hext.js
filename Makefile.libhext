@@ -11,7 +11,7 @@ build/v0.8.3.tar.gz:
 
 build/hext-0.8.3:
 	cd build && \
-	echo '71f559e7a9a62e8831ecfc9611a1808edef38aa49cdfd1f57e32f04ca9fccfd9' | sha256sum -c && \
+	echo '71f559e7a9a62e8831ecfc9611a1808edef38aa49cdfd1f57e32f04ca9fccfd9  v0.8.3.tar.gz' | sha256sum -c && \
 	tar xf v0.8.3.tar.gz
 
 build-dep/lib/libhext.a:
