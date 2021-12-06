@@ -8,7 +8,7 @@ boost: build/boost_1_70_0.tar.bz2 \
 
 build/boost_1_70_0.tar.bz2:
 	cd build && \
-	wget https://dl.bintray.com/boostorg/release/1.70.0/source/boost_1_70_0.tar.bz2
+		wget https://boostorg.jfrog.io/artifactory/main/release/1.70.0/source/boost_1_70_0.tar.bz2
 
 build/boost_1_70_0:
 	cd build && \
