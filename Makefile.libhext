@@ -1,21 +1,23 @@
-# Build libhext v0.8.3 emscripten
+# Build libhext v1.0.0 emscripten
+VERSION=1.0.0
 BASE=${PWD}
 
-all: build/v0.8.3.tar.gz \
-	build/hext-0.8.3 \
+all: build/v${VERSION}.tar.gz \
+	build/hext-${VERSION} \
 	build-dep/lib/libhext.a
 
-build/v0.8.3.tar.gz:
+build/v${VERSION}.tar.gz:
 	cd build && \
-	wget https://github.com/html-extract/hext/archive/v0.8.3.tar.gz
+		wget https://github.com/html-extract/hext/archive/refs/tags/v1.0.0.tar.gz
 
-build/hext-0.8.3:
+build/hext-${VERSION}:
 	cd build && \
-	echo '71f559e7a9a62e8831ecfc9611a1808edef38aa49cdfd1f57e32f04ca9fccfd9  v0.8.3.tar.gz' | sha256sum -c && \
-	tar xf v0.8.3.tar.gz
+	echo '0263f3ffc7d1272641c51fe3e5283b9c8084920085bd9d449fe76c8e26544e5f  v${VERSION}.tar.gz' \
+		| sha256sum -c \
+		&& tar xf v${VERSION}.tar.gz
 
 build-dep/lib/libhext.a:
-	cd build/hext-0.8.3/libhext/build && \
+	cd build/hext-${VERSION}/libhext/build && \
 	emcmake cmake \
 		-DGumbo_LIBRARY=${BASE}/build-dep/lib/libgumbo.a \
 		-DGumbo_INCLUDE_DIR=${BASE}/build-dep/include \
@@ -28,6 +30,6 @@ build-dep/lib/libhext.a:
 
 clean:
 	rm -f build-dep/lib/libhext.a
-	rm -rf build/v0.8.3.tar.gz
-	rm -rf build/hext-0.8.3
+	rm -rf build/v${VERSION}.tar.gz
+	rm -rf build/hext-${VERSION}
 

@@ -12,8 +12,9 @@ build/boost_1_70_0.tar.bz2:
 
 build/boost_1_70_0:
 	cd build && \
-	echo '430ae8354789de4fd19ee52f3b1f739e1fba576f0aded0897c3c2bc00fb38778  boost_1_70_0.tar.bz2' | sha256sum -c && \
-	tar xf boost_1_70_0.tar.bz2
+	echo '430ae8354789de4fd19ee52f3b1f739e1fba576f0aded0897c3c2bc00fb38778  boost_1_70_0.tar.bz2' \
+		| sha256sum -c \
+		&& tar xf boost_1_70_0.tar.bz2
 
 build/boost_1_70_0/project-config.jam:
 	cd build/boost_1_70_0 && \
@@ -31,10 +32,14 @@ build-dep/lib/libboost_regex.so:
 		toolset=emscripten \
 		variant=release \
 		threading=single \
+		link=shared \
+		runtime-link=shared \
 		regex \
 		install
+	[ -f "build-dep/lib/libboost_regex.dylib" ] \
+		&& cp -vf build-dep/lib/libboost_regex.dylib $@
 
 clean:
-	rm -f build-dep/lib/libboost_regex.so
+	rm -f build-dep/lib/libboost_regex.*
 	rm -rf build/boost_*
 
