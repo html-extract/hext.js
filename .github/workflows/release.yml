@@ -1,0 +1,27 @@
+name: Hext Emscripten Release
+on: 
+  push:
+    branches:
+      - main
+      - master
+    # creates a release for any tag conforming to a
+    # semver version, e.g., v1.0.0 (assuming above branches)
+    tags:
+      - v*.*.*
+
+jobs:
+  hext_emscripten:
+    name: Build Release
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - name: Run
+      run: ./scripts/github-actions/build.sh
+    - uses: ncipollo/release-action@v1
+      with:
+        artifacts: "hext-emscripten.html,hext-emscripten.js,hext-emscripten.wasm"
+        token: ${{ secrets.GITHUB_TOKEN }}
+        generateReleaseNotes: true
+        name: Hext Emscripten ${{github.event.inputs.tag}}
