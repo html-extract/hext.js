@@ -1,5 +1,6 @@
 # Build libhext v1.0.0 emscripten
-VERSION=1.0.0
+VERSION=1.0.1
+SHA256=916d94e9f0d039c69642c24e2d5f5690f6eede575a722b45623129b5f0c4ba10
 BASE=${PWD}
 
 all: build/v${VERSION}.tar.gz \
@@ -8,13 +9,12 @@ all: build/v${VERSION}.tar.gz \
 
 build/v${VERSION}.tar.gz:
 	cd build && \
-		wget https://github.com/html-extract/hext/archive/refs/tags/v1.0.0.tar.gz
+	wget https://github.com/html-extract/hext/archive/refs/tags/v${VERSION}.tar.gz
 
 build/hext-${VERSION}:
 	cd build && \
-	echo '0263f3ffc7d1272641c51fe3e5283b9c8084920085bd9d449fe76c8e26544e5f  v${VERSION}.tar.gz' \
-		| sha256sum -c \
-		&& tar xf v${VERSION}.tar.gz
+	echo '${SHA256}  v${VERSION}.tar.gz' | sha256sum -c && \
+	tar xf v${VERSION}.tar.gz
 
 build-dep/lib/libhext.a:
 	cd build/hext-${VERSION}/libhext/build && \
