@@ -14,11 +14,17 @@ build/v${VERSION}.tar.gz:
 build/hext-${VERSION}:
 	cd build && \
 	echo '${SHA256}  v${VERSION}.tar.gz' | sha256sum -c && \
-	tar xf v${VERSION}.tar.gz
+	tar xf v${VERSION}.tar.gz && \
+	patch -p1 < ../libhext-regex-headeronly.patch
 
 build-dep/lib/libhext.a:
 	cd build/hext-${VERSION}/libhext/build && \
 	emcmake cmake \
+		-DCMAKE_AR=$(shell which emar) \
+		-DCMAKE_RANLIB=$(shell which emranlib) \
+		-DCMAKE_MAKE_PROGRAM=$(shell which emmake) \
+		-DCMAKE_C_COMPILER=$(shell which emcc) \
+		-DCMAKE_CXX_COMPILER=$(shell which em++) \
 		-DGumbo_LIBRARY=${BASE}/build-dep/lib/libgumbo.a \
 		-DGumbo_INCLUDE_DIR=${BASE}/build-dep/include \
 		-DBoost_INCLUDE_DIR=${BASE}/build-dep/include \
