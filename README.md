@@ -5,7 +5,7 @@
 This is a full Make build process for compiling the C/C++ Hext and all its dependencies to JavaScript/WebAssembly.
 
 In order to build this, you need [Emscripten](https://emscripten.org/docs/getting_started/downloads.html) and the following packages:
-`wget git python2.7 python build-essential libxml2 libtool autoconf rapidjson-dev cmake`.
+`wget git python build-essential libxml2 libtool autoconf rapidjson-dev cmake`.
 
 Then compilation is done with a single command:
 
