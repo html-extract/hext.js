@@ -37,7 +37,16 @@ hext.onRuntimeInitialized = function() {
   }
 
   var html = new hext.Html(strhtml);
-  var result = rule.extract(html);
+  var result;
+  try
+  {
+    result = rule.extract(html, 10000);
+  }
+  catch(e)
+  {
+    console.error(util.format("%s: In %s: %s", scriptname, args[0], e.message));
+    process.exit(1);
+  }
 
   for(var i in result)
     console.log(JSON.stringify(result[i]));

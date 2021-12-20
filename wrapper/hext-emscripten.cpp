@@ -1,4 +1,5 @@
 #include <hext/Html.h>
+#include <hext/MaxSearchError.h>
 #include <hext/ParseHext.h>
 #include <hext/Result.h>
 #include <hext/Rule.h>
@@ -9,6 +10,7 @@
 #include <emscripten/val.h>
 
 #include <cstddef>
+#include <cstdint>
 #include <stdexcept>
 #include <string>
 #include <utility>
@@ -95,7 +97,24 @@ public:
 
   emscripten::val extract(const Html& html) const
   {
-    return ResultToVal(this->rule_.extract(html.html_));
+    return this->extract(html, 0);
+  }
+
+  emscripten::val extract(const Html& html, std::uint32_t max_searches) const
+  {
+    try
+    {
+      return ResultToVal(this->rule_.extract(html.html_, max_searches));
+    }
+    catch( const hext::MaxSearchError& e )
+    {
+      // requires em++ switch '-s DISABLE_EXCEPTION_CATCHING=0'
+      emscripten::val::global("Error").new_(
+        emscripten::val(
+          std::string(e.what())
+        )
+      ).throw_();
+    }
   }
 
 private:
@@ -108,6 +127,11 @@ EMSCRIPTEN_BINDINGS(hext) {
     .constructor<std::string>();
   emscripten::class_<Rule>("Rule")
     .constructor<std::string>()
-    .function("extract", &Rule::extract);
+    .function(
+      "extract",
+      emscripten::select_overload<emscripten::val(const Html&) const>(&Rule::extract))
+    .function(
+      "extract",
+      emscripten::select_overload<emscripten::val(const Html&, std::uint32_t) const>(&Rule::extract));
 }
 
