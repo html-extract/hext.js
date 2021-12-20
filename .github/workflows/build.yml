@@ -3,10 +3,17 @@ on: [push, pull_request]
 
 jobs:
   hext_emscripten:
-    name: Build
+    name: Build Release
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
     - name: Run
       run: ./scripts/github-actions/build.sh
-
+    - run: >
+        mkdir hext-emscripten-${{ github.sha }}
+        && mv hext-emscripten.html hext-emscripten.js hext-emscripten.wasm \
+          hext-emscripten-${{ github.sha }}/
+    - uses: actions/upload-artifact@v1
+      with:
+        name: hext-emscripten-${{ github.sha }}
+        path: hext-emscripten-${{ github.sha }}
