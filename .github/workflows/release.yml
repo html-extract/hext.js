@@ -24,4 +24,4 @@ jobs:
         artifacts: "hext-emscripten.html,hext-emscripten.js,hext-emscripten.wasm"
         token: ${{ secrets.GITHUB_TOKEN }}
         generateReleaseNotes: true
-        name: Hext Emscripten ${{github.event.inputs.tag}}
+        name: Hext Emscripten ${{inputs.tag}}
