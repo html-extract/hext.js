@@ -1,0 +1,12 @@
+name: Hext Emscripten
+on: [push, pull_request]
+
+jobs:
+  hext_emscripten:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Run
+      run: ./scripts/github-actions/build.sh
+
