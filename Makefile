@@ -38,7 +38,6 @@ hext-emscripten.html:
 		-I./build-dep/include \
 		./build-dep/lib/libhext.a \
 		./build-dep/lib/libgumbo.a \
-		./build-dep/lib/libboost_regex.so \
 		-s ALLOW_MEMORY_GROWTH=1 \
 		-s DISABLE_EXCEPTION_CATCHING=0
 

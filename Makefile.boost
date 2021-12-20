@@ -1,30 +1,33 @@
-# Build boost 1.70.0 emscripten
+# Build boost
 BASE=${PWD}
 
-boost: build/boost_1_70_0.tar.bz2 \
-	build/boost_1_70_0 \
-	build/boost_1_70_0/project-config.jam \
-	build-dep/lib/libboost_regex.so
+BOOST_VERSION=1_78_0
+BOOST_URL=https://boostorg.jfrog.io/artifactory/main/release/1.78.0/source/boost_1_78_0.tar.gz
+BOOST_SHA256=94ced8b72956591c4775ae2207a9763d3600b30d9d7446562c552f0a14a63be7
 
-build/boost_1_70_0.tar.bz2:
+boost: build/boost_${BOOST_VERSION}.tar.gz \
+	build/boost_${BOOST_VERSION} \
+	build/boost_${BOOST_VERSION}/project-config.jam \
+	build-dep/include/boost
+
+build/boost_${BOOST_VERSION}.tar.gz:
 	cd build && \
-		wget https://boostorg.jfrog.io/artifactory/main/release/1.70.0/source/boost_1_70_0.tar.bz2
+		wget "${BOOST_URL}"
 
-build/boost_1_70_0:
+build/boost_${BOOST_VERSION}:
 	cd build && \
-	echo '430ae8354789de4fd19ee52f3b1f739e1fba576f0aded0897c3c2bc00fb38778  boost_1_70_0.tar.bz2' \
-		| sha256sum -c \
-		&& tar xf boost_1_70_0.tar.bz2
+	echo '${BOOST_SHA256}  boost_${BOOST_VERSION}.tar.gz' | sha256sum -c && \
+		tar xf boost_${BOOST_VERSION}.tar.gz
 
-build/boost_1_70_0/project-config.jam:
-	cd build/boost_1_70_0 && \
+build/boost_${BOOST_VERSION}/project-config.jam:
+	cd build/boost_${BOOST_VERSION} && \
 	./bootstrap.sh \
 		--prefix=${BASE}/build-dep \
 		--without-icu \
 		--with-libraries=regex
 
-build-dep/lib/libboost_regex.so:
-	cd build/boost_1_70_0 && \
+build-dep/include/boost:
+	cd build/boost_${BOOST_VERSION} && \
 	./b2 \
 		-d0 \
 		--prefix=${BASE}/build-dep \
@@ -32,14 +35,10 @@ build-dep/lib/libboost_regex.so:
 		toolset=emscripten \
 		variant=release \
 		threading=single \
-		link=shared \
-		runtime-link=shared \
-		regex \
+		link=static \
 		install
-	[ -f "build-dep/lib/libboost_regex.dylib" ] \
-		&& cp -vf build-dep/lib/libboost_regex.dylib $@
 
 clean:
-	rm -f build-dep/lib/libboost_regex.*
+	rm -rf build-dep/include/boost
 	rm -rf build/boost_*
 
