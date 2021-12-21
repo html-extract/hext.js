@@ -1,11 +1,8 @@
 name: Hext Emscripten Release
 on: 
   push:
-    branches:
-      - main
-      - master
     # creates a release for any tag conforming to a
-    # semver version, e.g., v1.0.0 (assuming above branches)
+    # semver version, e.g., v1.0.0
     tags:
       - v*.*.*
 
@@ -24,4 +21,4 @@ jobs:
         artifacts: "hext-emscripten.html,hext-emscripten.js,hext-emscripten.wasm"
         token: ${{ secrets.GITHUB_TOKEN }}
         generateReleaseNotes: true
-        name: Hext Emscripten ${{inputs.tag}}
+        draft: false
