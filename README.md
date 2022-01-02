@@ -1,6 +1,13 @@
 # Hext Emscripten
 
-This is a full Make build process for compiling the C/C++ Hext and all its dependencies to JavaScript/WebAssembly.
+Browser based [Hext](https://github.com/html-extract/hext). You can get the latest Hext in your browser using the [jsDelivr CDN](https://www.jsdelivr.com/):
+
+    <script
+        type="text/javascript"
+        src="https://cdn.jsdelivr.net/gh/html-extract/hext-emscripten/hext-emscripten.js">
+    </script>
+
+This repo contains a full build process for compiling the C/C++ Hext and all its dependencies to JavaScript/WebAssembly.
 
 In order to build this, you need [Emscripten](https://emscripten.org/docs/getting_started/downloads.html) and the following packages:
 `wget git python build-essential libxml2 libtool autoconf rapidjson-dev cmake`.

@@ -41,8 +41,4 @@ build/
 build-dep/
 emsdk/
 
-# output js/web assembly/stub html
 hext-emscripten.html
-hext-emscripten.js
-hext-emscripten.wasm
-
