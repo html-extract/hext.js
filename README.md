@@ -2,9 +2,12 @@
 
 Browser based [Hext](https://github.com/html-extract/hext). You can get the latest Hext in your browser using the [jsDelivr CDN](https://www.jsdelivr.com/):
 
-    <script
-        type="text/javascript"
-        src="https://cdn.jsdelivr.net/gh/html-extract/hext-emscripten/hext-emscripten.js">
+    <script type="module">
+      import { Rule, Html } from "https://cdn.jsdelivr.net/gh/html-extract/hext-emscripten/hext.js";
+      const html = new Html("<ul><li>Hello</li><li>World</li></ul>");
+      const rule = new Rule("<li @text:my_text />");
+      const result = rule.extract(html).map(x => x.my_text).join(", ");
+      console.log(result); // "Hello, World"
     </script>
 
 This repo contains a full build process for compiling the C/C++ Hext and all its dependencies to JavaScript/WebAssembly.

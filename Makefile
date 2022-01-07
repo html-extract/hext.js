@@ -1,4 +1,4 @@
-all: check_environment dependencies hext-emscripten.html
+all: check_environment dependencies hext.js
 test: all run-tests
 
 check_environment:
@@ -18,7 +18,7 @@ dependencies:
 	make -f Makefile.gumbo
 	make -f Makefile.libhext
 
-hext-emscripten.html:
+hext.js:
 	em++ -std=c++17 -O3 -DNDEBUG \
 		-Weverything \
 		-Wno-c++98-compat \
@@ -34,12 +34,21 @@ hext-emscripten.html:
 		-Wno-missing-prototypes \
 		--bind \
 		./wrapper/hext-emscripten.cpp \
-		-o hext-emscripten.html \
+		-o $@ \
 		-I./build-dep/include \
 		./build-dep/lib/libhext.a \
 		./build-dep/lib/libgumbo.a \
+		--extern-post-js ./wrapper/extern-post.js \
+		-s MODULARIZE=1 \
+		-s EXPORT_NAME="loadHext" \
+		-s EXPORT_ES6=1 \
+		-s SINGLE_FILE=1 \
 		-s ALLOW_MEMORY_GROWTH=1 \
 		-s DISABLE_EXCEPTION_CATCHING=0
+	sed -i 's/export default loadHext;//g' $@
+	grep -sq 'export default loadHext' $@ \
+		&& (echo "loadHext export detected. Failing build." && exit 1) \
+		|| echo "Build successful."
 
 run-tests:
 	HTMLEXT="node ./htmlext.wasm.js" \
