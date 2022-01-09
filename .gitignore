@@ -41,4 +41,5 @@ build/
 build-dep/
 emsdk/
 
-hext-emscripten.html
+/hext.js
+/hext.mjs

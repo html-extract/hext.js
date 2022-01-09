@@ -1,19 +1,27 @@
-name: Hext Emscripten
+name: Hext.js Build
 on: [push, pull_request]
 
 jobs:
   hext_emscripten:
-    name: Build Release
+    name: Hext.js Build
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - name: Run
       run: ./scripts/github-actions/build.sh
-    - run: >
-        mkdir hext-emscripten-${{ github.sha }}
-        && mv hext-emscripten.html hext-emscripten.js hext-emscripten.wasm \
-          hext-emscripten-${{ github.sha }}/
-    - uses: actions/upload-artifact@v1
+    - if: ${{ github.event_name == 'push' }}
+      run: >
+        mkdir hext.js-${{ github.sha }}
+        && cp hext.js hext.mjs hext.js-${{ github.sha }}/
+    - if: ${{ github.event_name == 'push' }}
+      uses: actions/upload-artifact@v1
       with:
-        name: hext-emscripten-${{ github.sha }}
-        path: hext-emscripten-${{ github.sha }}
+        name: hext.js-${{ github.sha }}
+        path: hext.js-${{ github.sha }}
+    - if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+      run: cp -f hext.js hext.mjs dist/
+    - if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+      uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: "auto update dist/hext.{js,mjs} [Github Actions]"
+        file_pattern: dist/hext.js dist/hext.mjs

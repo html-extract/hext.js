@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
-var hext = require('./hext-emscripten.js');
+var loadHext = require('./hext.js');
 var path = require('path');
 var util = require('util');
 var file = require('fs');
 
-hext.onRuntimeInitialized = function() {
+loadHext().then(hext => {
   var args = process.argv.slice(2);
   var scriptname = path.basename(__filename);
   if( args.length < 1 )
@@ -50,5 +50,5 @@ hext.onRuntimeInitialized = function() {
 
   for(var i in result)
     console.log(JSON.stringify(result[i]));
-};
+});
 

@@ -1,4 +1,4 @@
-all: check_environment dependencies hext.js
+all: check_environment dependencies hext.mjs hext.js
 test: all run-tests
 
 check_environment:
@@ -18,7 +18,7 @@ dependencies:
 	make -f Makefile.gumbo
 	make -f Makefile.libhext
 
-hext.js:
+hext.mjs:
 	em++ -std=c++17 -O3 -DNDEBUG \
 		-Weverything \
 		-Wno-c++98-compat \
@@ -50,6 +50,32 @@ hext.js:
 		&& (echo "loadHext export detected. Failing build." && exit 1) \
 		|| echo "Build successful."
 
+hext.js:
+	em++ -std=c++17 -O3 -DNDEBUG \
+		-Weverything \
+		-Wno-c++98-compat \
+		-Wno-c++98-compat-pedantic \
+		-Wno-documentation \
+		-Wno-documentation-html \
+		-Wno-documentation-unknown-command \
+		-Wno-exit-time-destructors \
+		-Wno-global-constructors \
+		-Wno-padded \
+		-Wno-switch-enum \
+		-Wno-weak-vtables \
+		-Wno-missing-prototypes \
+		--bind \
+		./wrapper/hext-emscripten.cpp \
+		-o hext.js \
+		-I./build-dep/include \
+		./build-dep/lib/libhext.a \
+		./build-dep/lib/libgumbo.a \
+		-s MODULARIZE=1 \
+		-s EXPORT_NAME="loadHext" \
+		-s SINGLE_FILE=1 \
+		-s ALLOW_MEMORY_GROWTH=1 \
+		-s DISABLE_EXCEPTION_CATCHING=0
+
 run-tests:
 	HTMLEXT="node ./htmlext.wasm.js" \
 		./build/hext-*/test/blackbox.sh \
@@ -61,7 +87,6 @@ clean:
 	make -f Makefile.libhext clean
 	rm -rf build-dep
 	rm -rf build
-	rm -f hext-emscripten.js
-	rm -f hext-emscripten.wasm
-	rm -f hext-emscripten.html
+	rm -f hext.js
+	rm -f hext.mjs
 

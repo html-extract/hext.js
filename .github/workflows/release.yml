@@ -1,4 +1,4 @@
-name: Hext Emscripten Release
+name: Hext.js Release
 on: 
   push:
     # creates a release for any tag conforming to a
@@ -8,17 +8,16 @@ on:
 
 jobs:
   hext_emscripten:
-    name: Build Release
+    name: Hext.js Release
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
-    - name: Run
-      run: ./scripts/github-actions/build.sh
     - uses: ncipollo/release-action@v1
       with:
-        artifacts: "hext-emscripten.html,hext-emscripten.js,hext-emscripten.wasm"
+        artifacts: "dist/hext.js,dist/hext.mjs"
         token: ${{ secrets.GITHUB_TOKEN }}
         generateReleaseNotes: true
         draft: false
+        allowUpdates: true
