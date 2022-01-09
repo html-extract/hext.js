@@ -1,0 +1,24 @@
+{
+  "name": "hext.js",
+  "version": "1.0.2",
+  "description": "Use Hext in a browser or with node",
+  "homepage": "https://hext.thomastrapp.com",
+  "bugs": "https://github.com/html-extract/hext.js/issues",
+  "author": {
+    "name": "Thomas Trapp",
+    "email": "hext@thomastrapp.com",
+    "url": "https://thomastrapp.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/html-extract/hext.js.git"
+  },
+  "main": "hext.js",
+  "scripts": {},
+  "keywords": [
+    "html",
+    "scraping",
+    "html-extraction"
+  ],
+  "license": "Apache-2.0"
+}
