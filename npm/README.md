@@ -5,6 +5,7 @@
 Hext is a domain-specific language for extracting structured data from HTML. It can be thought of as a counterpart to templates, which are typically used by web developers to structure content on the web.
 
 Note: This package is a JavaScript/WebAssembly port of Hext. Hext is also available as a native node addon: npm install hext
+
 See [hext.thomastrapp.com](https://hext.thomastrapp.com/) for more.
 
 ## Using Hext.js with Node
@@ -12,7 +13,7 @@ See [hext.thomastrapp.com](https://hext.thomastrapp.com/) for more.
 See [hext.thomastrapp.com/download#hext-for-javascript](https://hext.thomastrapp.com/download#hext-for-javascript).
 
 ```
-const loadHext = require('./hext.js');
+const loadHext = require('hext.js');
 
 loadHext().then(hext => {
   const html = new hext.Html("<ul><li>Hello</li><li>World</li></ul>");
