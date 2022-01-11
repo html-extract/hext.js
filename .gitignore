@@ -43,3 +43,4 @@ emsdk/
 
 /hext.js
 /hext.mjs
+/hext-without-eval.js

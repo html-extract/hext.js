@@ -1,11 +1,22 @@
 #!/usr/bin/env node
 
-var loadHext = require('./hext.js');
 var path = require('path');
 var util = require('util');
 var file = require('fs');
 
-loadHext().then(hext => {
+var importHext = (() => {
+  switch( process.env.HEXT_JS )
+  {
+    case "hext-without-eval.js":
+      return require("./hext-without-eval.js");
+
+    case "hext.js":
+    default:
+      return require("./hext.js");
+  }
+})();
+
+importHext().then(hext => {
   var args = process.argv.slice(2);
   var scriptname = path.basename(__filename);
   if( args.length < 1 )

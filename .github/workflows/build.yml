@@ -12,16 +12,16 @@ jobs:
     - if: ${{ github.event_name == 'push' }}
       run: >
         mkdir hext.js-${{ github.sha }}
-        && cp hext.js hext.mjs hext.js-${{ github.sha }}/
+        && cp hext.js hext.mjs hext-without-eval.js hext.js-${{ github.sha }}/
     - if: ${{ github.event_name == 'push' }}
       uses: actions/upload-artifact@v1
       with:
         name: hext.js-${{ github.sha }}
         path: hext.js-${{ github.sha }}
     - if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
-      run: cp -f hext.js hext.mjs dist/
+      run: cp -f hext.js hext.mjs hext-without-eval.js dist/
     - if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
       uses: stefanzweifel/git-auto-commit-action@v4
       with:
-        commit_message: "auto update dist/hext.{js,mjs} [Github Actions]"
-        file_pattern: dist/hext.js dist/hext.mjs
+        commit_message: "auto update dist/ [Github Actions]"
+        file_pattern: dist/hext.js dist/hext.mjs dist/hext-without-eval.js

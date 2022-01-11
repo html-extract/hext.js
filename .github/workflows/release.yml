@@ -16,7 +16,7 @@ jobs:
         fetch-depth: 0
     - uses: ncipollo/release-action@v1
       with:
-        artifacts: "dist/hext.js,dist/hext.mjs"
+        artifacts: "dist/hext.js,dist/hext.mjs,dist/hext-without-eval.js"
         token: ${{ secrets.GITHUB_TOKEN }}
         generateReleaseNotes: true
         draft: false
