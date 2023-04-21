@@ -1,9 +1,9 @@
 # Build boost
 BASE=${PWD}
 
-BOOST_VERSION=1_80_0
-BOOST_URL=https://boostorg.jfrog.io/artifactory/main/release/1.80.0/source/boost_1_80_0.tar.gz
-BOOST_SHA256=4b2136f98bdd1f5857f1c3dea9ac2018effe65286cf251534b6ae20cc45e1847
+BOOST_VERSION=1_82_0
+BOOST_URL=https://boostorg.jfrog.io/artifactory/main/release/1.82.0/source/boost_1_82_0.tar.gz
+BOOST_SHA256=66a469b6e608a51f8347236f4912e27dc5c60c60d7d53ae9bfe4683316c6f04c
 
 boost: build/boost_${BOOST_VERSION}.tar.gz \
 	build/boost_${BOOST_VERSION} \
