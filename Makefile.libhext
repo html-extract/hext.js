@@ -1,6 +1,6 @@
 # Build libhext
-VERSION=1.0.4
-SHA256=377c0018df1fd7369074baab10ce962f428c31c852729daddbde5c78297b72bc
+VERSION=1.0.5
+SHA256=48f8bae4565b16b05c79eff69a6ba112f0b89d7b2c2ba4273b083ff4067ba3a2
 BASE=${PWD}
 
 all: build/v${VERSION}.tar.gz \
