@@ -4,7 +4,7 @@ set -e
 
 sudo apt-get update -yy
 sudo apt-get install -yy \
-  wget python build-essential libxml2 \
+  wget python3 build-essential libxml2 \
   libtool autoconf rapidjson-dev cmake
 
 # setup emsdk
