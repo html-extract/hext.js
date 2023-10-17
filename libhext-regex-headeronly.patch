@@ -1,14 +1,14 @@
-diff -ur ./hext-1.0.5/libhext/cmake/HextConfig.cmake ./hext-1.0.5-patched/libhext/cmake/HextConfig.cmake
---- ./hext-1.0.5/libhext/cmake/HextConfig.cmake	2021-12-17 08:43:21.000000000 -0800
-+++ ./hext-1.0.5-patched/libhext/cmake/HextConfig.cmake	2021-12-20 13:19:00.292603841 -0800
+diff -ur ./hext-1.0.6/libhext/cmake/HextConfig.cmake ./hext-1.0.6-patched/libhext/cmake/HextConfig.cmake
+--- ./hext-1.0.6/libhext/cmake/HextConfig.cmake	2021-12-17 08:43:21.000000000 -0800
++++ ./hext-1.0.6-patched/libhext/cmake/HextConfig.cmake	2021-12-20 13:19:00.292603841 -0800
 @@ -1,4 +1,3 @@
  include(CMakeFindDependencyMacro)
 -find_dependency(Boost COMPONENTS regex)
  find_dependency(Gumbo)
  include("${CMAKE_CURRENT_LIST_DIR}/HextTargets.cmake")
-diff -ur ./hext-1.0.5/libhext/CMakeLists.txt ./hext-1.0.5-patched/libhext/CMakeLists.txt
---- ./hext-1.0.5/libhext/CMakeLists.txt	2021-12-17 08:43:21.000000000 -0800
-+++ ./hext-1.0.5-patched/libhext/CMakeLists.txt	2021-12-20 13:18:48.964358484 -0800
+diff -ur ./hext-1.0.6/libhext/CMakeLists.txt ./hext-1.0.6-patched/libhext/CMakeLists.txt
+--- ./hext-1.0.6/libhext/CMakeLists.txt	2021-12-17 08:43:21.000000000 -0800
++++ ./hext-1.0.6-patched/libhext/CMakeLists.txt	2021-12-20 13:18:48.964358484 -0800
 @@ -29,7 +29,6 @@
  
  
