@@ -14,8 +14,7 @@ build/v${VERSION}.tar.gz:
 build/hext-${VERSION}:
 	cd build && \
 	echo '${SHA256}  v${VERSION}.tar.gz' | sha256sum -c && \
-	tar xf v${VERSION}.tar.gz && \
-	patch -p1 < ../libhext-regex-headeronly.patch
+	tar xf v${VERSION}.tar.gz
 
 build-dep/lib/libhext.a:
 	cd build/hext-${VERSION}/libhext/build && \
