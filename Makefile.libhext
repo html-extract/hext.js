@@ -5,7 +5,7 @@ BASE=${PWD}
 
 all: build/v${VERSION}.tar.gz \
 	build/hext-${VERSION} \
-	build-dep/lib/libhext.a
+	build-dep/libhext/lib/libhext.a
 
 build/v${VERSION}.tar.gz:
 	cd build && \
@@ -16,25 +16,27 @@ build/hext-${VERSION}:
 	echo '${SHA256}  v${VERSION}.tar.gz' | sha256sum -c && \
 	tar xf v${VERSION}.tar.gz
 
-build-dep/lib/libhext.a:
+# CMAKE_PREFIX_PATH is ignored, unless CMAKE_FIND_ROOT_PATH_MODE_{LIBRARY,INCLUDE,PACKAGE}
+# are set to "BOTH". If unset, the emscripten toolchain module sets them to "ONLY", breaking
+# CMAKE_PREFIX_PATH.
+build-dep/libhext/lib/libhext.a:
 	cd build/hext-${VERSION}/libhext/build && \
-	emcmake cmake \
+	CMAKE_PREFIX_PATH="${BASE}/build-dep/boost:${BASE}/build-dep/gumbo" emcmake cmake \
 		-DCMAKE_AR=$(shell which emar) \
 		-DCMAKE_RANLIB=$(shell which emranlib) \
 		-DCMAKE_MAKE_PROGRAM=$(shell which emmake) \
 		-DCMAKE_C_COMPILER=$(shell which emcc) \
 		-DCMAKE_CXX_COMPILER=$(shell which em++) \
-		-DGumbo_LIBRARY=${BASE}/build-dep/lib/libgumbo.a \
-		-DGumbo_INCLUDE_DIR=${BASE}/build-dep/include \
-		-DBoost_INCLUDE_DIR=${BASE}/build-dep/include \
-		-DBoost_LIBRARY_DIR=${BASE}/build-dep/lib \
-		-DCMAKE_FIND_ROOT_PATH=${BASE}/build-dep/lib/cmake \
-		-DCMAKE_INSTALL_PREFIX=${BASE}/build-dep \
+		-DCMAKE_INSTALL_PREFIX="${BASE}/build-dep/libhext" \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DCMAKE_FIND_ROOT_PATH_MODE_LIBRARY=BOTH \
+		-DCMAKE_FIND_ROOT_PATH_MODE_INCLUDE=BOTH \
+		-DCMAKE_FIND_ROOT_PATH_MODE_PACKAGE=BOTH \
 		.. && \
 	emmake make install VERBOSE=1
 
 clean:
-	rm -f build-dep/lib/libhext.a
+	rm -rf build-dep/libhext
 	rm -rf build/v${VERSION}.tar.gz
 	rm -rf build/hext-${VERSION}
 

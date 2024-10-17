@@ -33,11 +33,14 @@ em_flags = -std=c++17 \
 	-Wno-switch-enum \
 	-Wno-weak-vtables \
 	-Wno-missing-prototypes \
+	-Wno-unsafe-buffer-usage \
 	--bind \
 	./wrapper/hext-emscripten.cpp \
-	-I./build-dep/include \
-	./build-dep/lib/libhext.a \
-	./build-dep/lib/libgumbo.a \
+	-I./build-dep/boost/include \
+	-I./build-dep/gumbo/include \
+	-I./build-dep/libhext/include \
+	./build-dep/libhext/lib/libhext.a \
+	./build-dep/gumbo/lib/libgumbo.a \
 	-s MODULARIZE=1 \
 	-s EXPORT_NAME="loadHext" \
 	-s SINGLE_FILE=1 \

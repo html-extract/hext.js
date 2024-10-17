@@ -7,7 +7,7 @@ BOOST_SHA256=2575e74ffc3ef1cd0babac2c1ee8bdb5782a0ee672b1912da40e5b4b591ca01f
 
 boost: build/boost_${BOOST_VERSION}.tar.gz \
 	build/boost_${BOOST_VERSION} \
-	build-dep/include/boost
+	build-dep/boost/include
 
 build/boost_${BOOST_VERSION}.tar.gz:
 	cd build && \
@@ -18,11 +18,17 @@ build/boost_${BOOST_VERSION}:
 	echo '${BOOST_SHA256}  boost_${BOOST_VERSION}.tar.gz' | sha256sum -c && \
 		tar xf boost_${BOOST_VERSION}.tar.gz
 
-build-dep/include/boost:
-	mkdir -p build-dep/include
-	cp -rf build/boost_${BOOST_VERSION}/boost build-dep/include/
+# Install Boost with its installer. This also creates the CMake config files, which are needed because newer
+# versions of CMake no longer ship their own FindBoost module.
+# Boost.System isn't actually needed. Boost.System is installed here, because Boost doesn't have an option to
+# only install the header-only libraries.
+build-dep/boost/include:
+	mkdir -p "${BASE}/build-dep/boost" && \
+	cd "build/boost_${BOOST_VERSION}" && \
+	./bootstrap.sh --prefix="${BASE}/build-dep/boost" --with-libraries=system && \
+	./b2 install
 
 clean:
-	rm -rf build-dep/include/boost
+	rm -rf build-dep/boost
 	rm -rf build/boost_*
 

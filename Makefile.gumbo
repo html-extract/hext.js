@@ -5,7 +5,7 @@ BASE=${PWD}
 all: build/v0.10.1.tar.gz build/gumbo-parser-0.10.1 \
 	build/gumbo-parser-0.10.1/configure \
 	build/gumbo-parser-0.10.1/Makefile \
-	build-dep/lib/libgumbo.a
+	build-dep/gumbo/lib/libgumbo.a
 
 build/v0.10.1.tar.gz:
 	cd build && wget https://github.com/google/gumbo-parser/archive/v0.10.1.tar.gz
@@ -21,15 +21,15 @@ build/gumbo-parser-0.10.1/configure:
 build/gumbo-parser-0.10.1/Makefile:
 	cd build/gumbo-parser-0.10.1 && \
 	emconfigure ./configure \
-		--prefix=${BASE}/build-dep \
+		--prefix=${BASE}/build-dep/gumbo \
 		--enable-static --disable-shared
 
-build-dep/lib/libgumbo.a:
+build-dep/gumbo/lib/libgumbo.a:
 	cd build/gumbo-parser-0.10.1 && \
 	emmake make install
 
 clean:
-	rm -f build-dep/lib/libgumbo.a
+	rm -rf build-dep/gumbo
 	rm -rf build/v0.10.1.tar.gz
 	rm -rf build/gumbo-parser-0.10.1
 
