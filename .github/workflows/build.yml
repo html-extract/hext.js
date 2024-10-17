@@ -21,7 +21,7 @@ jobs:
     - if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
       run: cp -f hext.js hext.mjs hext-without-eval.js dist/
     - if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
-      uses: stefanzweifel/git-auto-commit-action@v4
+      uses: stefanzweifel/git-auto-commit-action@v5
       with:
         commit_message: "auto update dist/ [Github Actions]"
         file_pattern: dist/hext.js dist/hext.mjs dist/hext-without-eval.js
