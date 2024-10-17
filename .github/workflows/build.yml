@@ -1,5 +1,5 @@
 name: Hext.js Build
-on: [push, pull_request]
+on: [push]
 
 jobs:
   hext_emscripten:
