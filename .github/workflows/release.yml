@@ -11,7 +11,7 @@ jobs:
     name: Hext.js Release
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
       with:
         fetch-depth: 0
     - uses: ncipollo/release-action@v1
