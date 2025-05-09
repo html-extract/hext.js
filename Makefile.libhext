@@ -19,6 +19,17 @@ build/hext-${VERSION}:
 # CMAKE_PREFIX_PATH is ignored, unless CMAKE_FIND_ROOT_PATH_MODE_{LIBRARY,INCLUDE,PACKAGE}
 # are set to "BOTH". If unset, the emscripten toolchain module sets them to "ONLY", breaking
 # CMAKE_PREFIX_PATH.
+
+# Temporary fix for emscripten 4.0.8:
+#   When CMake encounters a new compiler, it will run some checks.
+#   This was disabled in earlier versions of emscripten.
+#   Emscripten 4.0.8 has these checks enabled.
+#   But, the emscripten compiler fails these checks, breaking the build.
+#   EMSCRIPTEN_FORCE_COMPILERS is therefore explicitly set to "On" here, which
+#   forces CMake to not run checks on the compiler.
+#   Current main branch of emscripten disabled these checks again, which suggests
+#   this workaround is no longer necessary in future emscripten versions.
+#   https://github.com/emscripten-core/emscripten/pull/24223
 build-dep/libhext/lib/libhext.a:
 	cd build/hext-${VERSION}/libhext/build && \
 	CMAKE_PREFIX_PATH="${BASE}/build-dep/boost:${BASE}/build-dep/gumbo" emcmake cmake \
@@ -32,6 +43,7 @@ build-dep/libhext/lib/libhext.a:
 		-DCMAKE_FIND_ROOT_PATH_MODE_LIBRARY=BOTH \
 		-DCMAKE_FIND_ROOT_PATH_MODE_INCLUDE=BOTH \
 		-DCMAKE_FIND_ROOT_PATH_MODE_PACKAGE=BOTH \
+		-DEMSCRIPTEN_FORCE_COMPILERS=On \
 		.. && \
 	emmake make install VERBOSE=1
 
