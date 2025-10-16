@@ -2,34 +2,35 @@
 
 BASE=${PWD}
 
-all: build/v0.10.1.tar.gz build/gumbo-parser-0.10.1 \
-	build/gumbo-parser-0.10.1/configure \
-	build/gumbo-parser-0.10.1/Makefile \
+GUMBO_VERSION=0.13.2
+GUMBO_URL=https://codeberg.org/gumbo-parser/gumbo-parser/archive/${GUMBO_VERSION}.tar.gz
+GUMBO_SHA256=dbdc159dc8e5c6f3f254e50bce689dd9e439064ff06c165d5653410a5714ab66
+
+all: build/${GUMBO_VERSION}.tar.gz build/gumbo-parser \
 	build-dep/gumbo/lib/libgumbo.a
 
-build/v0.10.1.tar.gz:
-	cd build && wget https://github.com/google/gumbo-parser/archive/v0.10.1.tar.gz
+build/${GUMBO_VERSION}.tar.gz:
+	cd build && wget "${GUMBO_URL}"
 
-build/gumbo-parser-0.10.1:
+build/gumbo-parser:
 	cd build && \
-	echo '28463053d44a5dfbc4b77bcf49c8cee119338ffa636cc17fc3378421d714efad  v0.10.1.tar.gz' | sha256sum -c && \
-	tar xf v0.10.1.tar.gz
-
-build/gumbo-parser-0.10.1/configure:
-	cd build/gumbo-parser-0.10.1 && ./autogen.sh
-
-build/gumbo-parser-0.10.1/Makefile:
-	cd build/gumbo-parser-0.10.1 && \
-	emconfigure ./configure \
-		--prefix=${BASE}/build-dep/gumbo \
-		--enable-static --disable-shared
+	echo "${GUMBO_SHA256}  ${GUMBO_VERSION}.tar.gz" | sha256sum -c && \
+	tar xf ${GUMBO_VERSION}.tar.gz
 
 build-dep/gumbo/lib/libgumbo.a:
-	cd build/gumbo-parser-0.10.1 && \
-	emmake make install
+	mkdir -p build/gumbo-parser-build
+	cd build/gumbo-parser && \
+	meson setup "${BASE}/build/gumbo-parser-build" \
+		--cross-file="${BASE}/gumbo-parser-meson-wasm.cross" \
+		--prefix="${BASE}/build-dep/gumbo" \
+		-Ddefault_library=static \
+		-Dtests=false && \
+	meson compile -C "${BASE}/build/gumbo-parser-build" && \
+	meson install -C "${BASE}/build/gumbo-parser-build"
 
 clean:
 	rm -rf build-dep/gumbo
-	rm -rf build/v0.10.1.tar.gz
-	rm -rf build/gumbo-parser-0.10.1
+	rm -rf "build/${GUMBO_VERSION}.tar.gz"
+	rm -rf build/gumbo-parser
+	rm -rf build/gumbo-parser-build
 

@@ -64,7 +64,7 @@ Hext.js also works in Node ([example](./htmlext.wasm.js)). If performance is imp
 [Hext](https://github.com/html-extract/hext) is written in C++. This repo contains a full build process for compiling Hext and all its dependencies to JavaScript/WebAssembly.
 
 In order to build this, you need [Emscripten](https://emscripten.org/docs/getting_started/downloads.html) and the following packages:
-`wget git python3 build-essential libxml2 libtool autoconf rapidjson-dev cmake`.
+`wget git python3 build-essential libxml2 libtool autoconf rapidjson-dev cmake meson`.
 
 Then compilation is done with a single command:
 
