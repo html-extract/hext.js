@@ -1,9 +1,9 @@
 # Build boost
 BASE=${PWD}
 
-BOOST_VERSION=1_88_0
-BOOST_URL=https://archives.boost.io/release/1.88.0/source/boost_1_88_0.tar.gz
-BOOST_SHA256=3621533e820dcab1e8012afd583c0c73cf0f77694952b81352bf38c1488f9cb4
+BOOST_VERSION=1_89_0
+BOOST_URL=https://archives.boost.io/release/1.89.0/source/boost_1_89_0.tar.gz
+BOOST_SHA256=9de758db755e8330a01d995b0a24d09798048400ac25c03fc5ea9be364b13c93
 
 boost: build/boost_${BOOST_VERSION}.tar.gz \
 	build/boost_${BOOST_VERSION} \
