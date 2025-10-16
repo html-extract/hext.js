@@ -1,6 +1,6 @@
 {
   "name": "hext.js",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "Use Hext in a browser or with node",
   "homepage": "https://hext.thomastrapp.com",
   "bugs": "https://github.com/html-extract/hext.js/issues",
