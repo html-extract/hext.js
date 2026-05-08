@@ -1,9 +1,9 @@
 # Build boost
 BASE=${PWD}
 
-BOOST_VERSION=1_89_0
-BOOST_URL=https://archives.boost.io/release/1.89.0/source/boost_1_89_0.tar.gz
-BOOST_SHA256=9de758db755e8330a01d995b0a24d09798048400ac25c03fc5ea9be364b13c93
+BOOST_VERSION=1_91_0
+BOOST_URL=https://archives.boost.io/release/1.91.0/source/boost_1_91_0.tar.gz
+BOOST_SHA256=5734305f40a76c30f951c9abd409a45a2a19fb546efe4162119250bbe4d3a463
 
 boost: build/boost_${BOOST_VERSION}.tar.gz \
 	build/boost_${BOOST_VERSION} \
@@ -20,12 +20,11 @@ build/boost_${BOOST_VERSION}:
 
 # Install Boost with its installer. This also creates the CMake config files, which are needed because newer
 # versions of CMake no longer ship their own FindBoost module.
-# Boost.System isn't actually needed. Boost.System is installed here, because Boost doesn't have an option to
-# only install the header-only libraries.
+# "--with-libraries=headers" tricks b2 into not compiling all the libraries.
 build-dep/boost/include:
 	mkdir -p "${BASE}/build-dep/boost" && \
 	cd "build/boost_${BOOST_VERSION}" && \
-	./bootstrap.sh --prefix="${BASE}/build-dep/boost" --with-libraries=system && \
+	./bootstrap.sh --prefix="${BASE}/build-dep/boost" --with-libraries=headers && \
 	./b2 install
 
 clean:
