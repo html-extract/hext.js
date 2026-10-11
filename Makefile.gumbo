@@ -2,9 +2,9 @@
 
 BASE=${PWD}
 
-GUMBO_VERSION=0.13.2
+GUMBO_VERSION=0.14.1
 GUMBO_URL=https://codeberg.org/gumbo-parser/gumbo-parser/archive/${GUMBO_VERSION}.tar.gz
-GUMBO_SHA256=dbdc159dc8e5c6f3f254e50bce689dd9e439064ff06c165d5653410a5714ab66
+GUMBO_SHA256=ba5d13b9b508ec693613b3b61518163aced38f8e885f7e28dc047348a4e61365
 
 all: build/${GUMBO_VERSION}.tar.gz build/gumbo-parser \
 	build-dep/gumbo/lib/libgumbo.a
